@@ -28,14 +28,14 @@ import com.app.countriesapp.presentation.common.components.LoadingShimmer
 @Suppress("ktlint:standard:function-naming")
 @Composable
 fun CharacterDetailScreen(
-    characterId: String,
+    countryName: String,
     onBackClick: () -> Unit,
     viewModel: CountryDetailViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    LaunchedEffect(characterId) {
-        viewModel.getCountry(characterId)
+    LaunchedEffect(countryName) {
+        viewModel.loadCountry(countryName)
     }
     Scaffold(
         topBar = {
@@ -67,12 +67,12 @@ fun CharacterDetailScreen(
                 uiState.error != null -> {
                     ErrorView(
                         message = uiState.error ?: "Unknown error",
-                        onRetry = { viewModel.getCountry(characterId) },
+                        onRetry = { viewModel.loadCountry(countryName) },
                         modifier = Modifier.align(Alignment.Center),
                     )
                 }
                 uiState.country != null -> {
-                    CountryDetailContent(
+                    CountryDetailUiState(
                         country = uiState.country!!,
                     )
                 }
