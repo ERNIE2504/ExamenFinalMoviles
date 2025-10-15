@@ -1,11 +1,9 @@
-package com.app.countriesapp.presentation.screens.characterHome.components
+package com.app.countriesapp.presentation.screens.countriesHome.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -17,13 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import com.app.countriesapp.domain.model.Country
+import com.app.countriesapp.domain.model.Countries
 
 @Suppress("ktlint:standard:function-naming")
 @Composable
-fun CharacterCard(
-    country: Country,
+fun CountriesCard(
+    countries: Countries,
     onClick: () -> Unit,
 ) {
     Card(
@@ -47,20 +44,9 @@ fun CharacterCard(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = androidx.compose.foundation.layout.Arrangement.Center,
         ) {
-            AsyncImage(
-                model = country.image,
-                contentDescription = country.name,
-                modifier =
-                    Modifier
-                        .size(140.dp)
-                        .background(
-                            color = Color.White.copy(alpha = 0.2f),
-                            shape = RoundedCornerShape(12.dp),
-                        ).padding(8.dp),
-            )
 
             Text(
-                text = country.name,
+                text = countries.common,
                 style = MaterialTheme.typography.headlineSmall,
                 textAlign = TextAlign.Center,
                 modifier =

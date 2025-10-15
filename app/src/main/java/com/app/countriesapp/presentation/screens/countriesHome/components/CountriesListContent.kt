@@ -1,4 +1,4 @@
-package com.app.countriesapp.presentation.screens.characterHome.components
+package com.app.countriesapp.presentation.screens.countriesHome.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,16 +14,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.app.countriesapp.domain.model.Country
+import com.app.countriesapp.domain.model.Countries
 import com.app.countriesapp.presentation.common.components.LoadingShimmer
 
 @Suppress("ktlint:standard:function-naming")
 @Composable
-fun CharacterListContent(
-    countryList: List<Country>,
+fun CountriesListContent(
+    countryList: List<Countries>,
     isLoading: Boolean,
     error: String?,
-    onCharacterClick: (String) -> Unit,
+    onCountryClick: (String) -> Unit,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         when {
@@ -56,11 +56,11 @@ fun CharacterListContent(
                 ) {
                     items(
                         items = countryList,
-                        key = { it.id },
-                    ) { character ->
-                        CharacterCard(
-                            country = character,
-                            onClick = { onCharacterClick(character.id) },
+                        key = { it.common },
+                    ) { countries->
+                        CountriesCard(
+                            countries = countries,
+                            onClick = { onCountryClick(countries.common) },
                         )
                     }
                 }

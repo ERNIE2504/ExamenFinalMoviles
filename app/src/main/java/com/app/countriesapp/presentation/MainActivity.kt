@@ -7,8 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.app.countriesapp.presentation.navigation.CharacterNavGraph
-import com.app.countriesapp.presentation.theme.PokedexAppTheme
+import com.app.countriesapp.presentation.navigation.CountryNavGraph
+import com.app.countriesapp.presentation.theme.CountryAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,9 +17,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            PokedexAppTheme {
+            CountryAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    CharacterNavGraph()
+                    CountryNavGraph()
                 }
             }
         }

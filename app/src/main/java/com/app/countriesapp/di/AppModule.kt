@@ -1,11 +1,15 @@
 package com.app.countriesapp.di
 
+import android.content.Context
+import com.app.countriesapp.data.local.preferences.CountryPreferences
 import com.app.countriesapp.data.remote.api.CountriesApiService
 import com.app.countriesapp.data.repository.CountriesRepositoryImpl
 import com.app.countriesapp.domain.repository.CountryRepository
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -30,5 +34,15 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideCountryRepository(api: CountriesApiService): CountryRepository = CountriesRepositoryImpl(api)
+    fun provideGson(): Gson = Gson()
+
+    @Provides @Singleton
+    fun provideCountryPreferences(
+        @ApplicationContext context: Context,
+        gson: Gson
+    ): CountryPreferences = CountryPreferences(context, gson)
+
+    @Provides
+    @Singleton
+    fun provideCountryRepository(api: CountriesApiService, preferences: CountryPreferences): CountryRepository = CountriesRepositoryImpl(api, preferences)
 }

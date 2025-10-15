@@ -23,7 +23,6 @@ class CountryDetailViewModel @Inject constructor(
     val uiState: StateFlow<CountryDetailUiState> = _uiState.asStateFlow()
 
     init {
-        // si usas nav arg "countryName"
         val argName: String? = savedStateHandle["countryName"]
         if (!argName.isNullOrBlank()) {
             loadCountry(argName)

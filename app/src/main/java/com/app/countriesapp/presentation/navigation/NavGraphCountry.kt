@@ -8,22 +8,22 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.app.countriesapp.presentation.screens.countryDetail.CharacterDetailScreen
-import com.app.countriesapp.presentation.screens.characterHome.CharacterHomeScreen
+import com.app.countriesapp.presentation.screens.countriesHome.CountriesHomeScreen
+import com.app.countriesapp.presentation.screens.countryDetail.CountryDetailScreen
 
 sealed class Screen(
     val route: String,
 ) {
     object Home : Screen("home")
 
-    object Detail : Screen("character/{characterId}") {
-        fun createRoute(characterId: String) = "character/$characterId"
+    object Detail : Screen("name/{countryName}?fields=name,cca2,region,capital,population,flags") {
+        fun createRoute(countryName: String) = "name/$countryName"
     }
 }
 
 @Suppress("ktlint:standard:function-naming")
 @Composable
-fun CharacterNavGraph(
+fun CountryNavGraph(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
 ) {
@@ -33,20 +33,20 @@ fun CharacterNavGraph(
         modifier = modifier,
     ) {
         composable(route = Screen.Home.route) {
-            CharacterHomeScreen(
-                onCharacterClick = { characterId ->
-                    navController.navigate(Screen.Detail.createRoute(characterId))
+            CountriesHomeScreen(
+                onCountryClick = { countryName ->
+                    navController.navigate(Screen.Detail.createRoute(countryName))
                 },
             )
         }
 
         composable(
             route = Screen.Detail.route,
-            arguments = listOf(navArgument("characterId") { type = NavType.StringType }),
+            arguments = listOf(navArgument("countryName") { type = NavType.StringType }),
         ) { backStackEntry ->
-            val characterId = backStackEntry.arguments?.getString("characterId") ?: "1"
-            CharacterDetailScreen(
-                characterId = characterId,
+            val countryName = backStackEntry.arguments?.getString("countryName") ?: ""
+            CountryDetailScreen(
+                countryName = countryName,
                 onBackClick = { navController.popBackStack() },
             )
         }

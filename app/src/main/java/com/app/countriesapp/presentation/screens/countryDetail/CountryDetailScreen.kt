@@ -23,11 +23,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.app.countriesapp.presentation.common.components.ErrorView
 import com.app.countriesapp.presentation.common.components.LoadingShimmer
+import com.app.countriesapp.presentation.screens.countryDetail.components.CountryDetailContent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Suppress("ktlint:standard:function-naming")
 @Composable
-fun CharacterDetailScreen(
+fun CountryDetailScreen(
     countryName: String,
     onBackClick: () -> Unit,
     viewModel: CountryDetailViewModel = hiltViewModel(),
@@ -40,7 +41,7 @@ fun CharacterDetailScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Character Detail") },
+                title = { Text("Country Detail") },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(Icons.Default.ArrowBack, "Back")
@@ -72,8 +73,9 @@ fun CharacterDetailScreen(
                     )
                 }
                 uiState.country != null -> {
-                    CountryDetailUiState(
+                    CountryDetailContent(
                         country = uiState.country!!,
+
                     )
                 }
             }
